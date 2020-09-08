@@ -3,8 +3,19 @@ import ReactDom from "react-dom";
 
 const HelloWorld = () => {
   return (
-    <div>Hello World!</div>
-  )
-}
+    <div>
+      <Hello />
+    </div>
+  );
+};
 
-ReactDom.render(<HelloWorld/>, document.querySelector('#root'))
+const Hello = () => {
+  let name = "World";
+  return <span>Hello {name}</span>;
+};
+
+const World = () => {
+  return <span>World</span>;
+};
+
+ReactDom.render(<HelloWorld />, document.querySelector("#root"));
