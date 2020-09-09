@@ -7,7 +7,7 @@ function ItemPage({items, onAddToCart}) {
         <ul className="item-page__items">
             {items.map(item => 
                 <li key={item.id} className="item-page__item">
-                    <Item item={item} onAddToCart={() => onAddToCart(item)}
+                    <Item item={item} onAddToCart={() => onAddToCart(item)} />
                 </li>    
             )}
         </ul>
