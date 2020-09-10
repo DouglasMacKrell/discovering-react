@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Nav from "./Nav";
 import ItemPage from "./ItemPage";
+import CartPage from "./CartPage";
 import { items } from "./static-data";
 import "./App.css";
 
@@ -24,23 +25,45 @@ const App = () => {
     setCart((prevCart) => [...prevCart, item]);
   };
 
+  const removeItem = (item) => {
+    let index = cart.findIndex((i) => i.id === item.id);
+    if (index >= 0) {
+      setCart((cart) => {
+        const copy = [...cart];
+        copy.splice(index, 1);
+        return copy;
+      });
+    }
+  };
+
   return (
     <div className="app">
       <Nav activeTab={activeTab} onTabChange={setActiveTab} />
       <main className="app-content">
-        <Content tab={activeTab} onAddToCart={addToCart} />
+        <Content
+          tab={activeTab}
+          onAddToCart={addToCart}
+          cart={summarizeCart(cart)}
+          onRemoveItem={removeItem}
+        />
       </main>
     </div>
   );
 };
 
-const Content = ({ tab, onAddToCart }) => {
+const Content = ({ tab, onAddToCart, cart, onRemoveItem }) => {
   switch (tab) {
     default:
     case "items":
       return <ItemPage items={items} onAddToCart={onAddToCart} />;
     case "cart":
-      return <span>The Cart</span>;
+      return (
+        <CartPage
+          items={cart}
+          onAddOne={onAddToCart}
+          onRemoveOne={onRemoveItem}
+        />
+      );
   }
 };
 
